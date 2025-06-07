@@ -15,6 +15,7 @@ spec:
       containers:
       - name: flask-devops
         image: varun615768/flask-devops-app
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
 ---
