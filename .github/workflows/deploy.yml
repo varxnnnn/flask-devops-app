@@ -28,16 +28,3 @@ jobs:
           push: true
           tags: varun615768/flask-devops-app:latest
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'v1.29.0'
-
-      - name: Create kubeconfig file
-        run: echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
-
-      - name: Deploy to Kubernetes
-        env:
-          KUBECONFIG: ${{ github.workspace }}/kubeconfig.yaml
-        run: |
-          kubectl rollout restart deployment flask-devops
