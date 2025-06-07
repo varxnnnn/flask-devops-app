@@ -1,0 +1,5 @@
+kubectl apply -f k8s-deployment.yaml
+kubectl get all
+
+
+minikube service flask-service
