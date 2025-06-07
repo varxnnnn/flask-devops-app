@@ -2,7 +2,7 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [ main ]  
+    branches: [ main ]
 
 jobs:
   build:
@@ -27,21 +27,17 @@ jobs:
           context: .
           push: true
           tags: varun615768/flask-devops-app:latest
-      
-      
+
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: 'v1.29.0'  
+          version: 'v1.29.0'
 
-      
       - name: Create kubeconfig file
-        run: |
-          echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
-          export KUBECONFIG=$PWD/kubeconfig.yaml
+        run: echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
 
-      
       - name: Deploy to Kubernetes
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig.yaml
         run: |
-          export KUBECONFIG=$PWD/kubeconfig.yaml
           kubectl rollout restart deployment flask-devops
